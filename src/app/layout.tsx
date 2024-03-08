@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 
 import StyledComponentsRegistry from "@/utils/registry";
+import { GOOGLE_TAG_ID } from "@/constants/config";
 import { fontPrimary, fontSecondary } from "@/styles/fonts";
 
 export const metadata: Metadata = {
@@ -47,6 +49,20 @@ export default function RootLayout({
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content="/img/social/twitter-600x330.jpg" />
         <meta name="twitter:url" content="https://1satoshi1peso.ar/" />
+
+        {/* Analytics */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_TAG_ID}`}
+        />
+        <Script id="google-analytics">
+          {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', '${GOOGLE_TAG_ID}');
+        `}
+        </Script>
       </head>
       <body>
         <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
