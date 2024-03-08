@@ -7,7 +7,7 @@ import { Provider } from '@lawallet/ui';
 import GlobalStyles from '@/styles/GlobalStyles';
 import { appTheme } from '@/config';
 
-export default function StyledComponentsRegistry({ children }) {
+export default function StyledComponentsRegistry({ children }: any) {
   // Only create stylesheet once with lazy initial state
   // x-ref: https://reactjs.org/docs/hooks-reference.html#lazy-initial-state
   const [styledComponentsStyleSheet] = useState(() => new ServerStyleSheet());
