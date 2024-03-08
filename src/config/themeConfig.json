@@ -1,0 +1,26 @@
+{
+  "colors": {
+    "black": "#101010",
+    "white": "#fff",
+    "primary": "#C2F76C",
+    "secondary": "#EC5AB5",
+    "gray5": "#0D0D0D",
+    "gray10": "#1A1A1A",
+    "gray15": "#262626",
+    "gray20": "#333333",
+    "gray25": "#404040",
+    "gray30": "#4D4D4D",
+    "gray35": "#595959",
+    "gray40": "#666666",
+    "gray45": "#737373",
+    "gray50": "#808080",
+    "success": "#50A8F9",
+    "warning": "#FFC93D",
+    "error": "#FF4646",
+    "background": "#1C1C1C",
+    "text": "#f1f1f1"
+  },
+  "borders": {
+    "buttonRadius": "50px"
+  }
+}
