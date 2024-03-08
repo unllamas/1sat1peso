@@ -45,7 +45,7 @@ export default function RootLayout({
         <meta name='twitter:image' content='/img/social/twitter-600x330.jpg' />
         <meta name='twitter:url' content='https://1satoshi1peso.ar/' />
       </head>
-      <body className={inter.className}>
+      <body>
         <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
       </body>
     </html>
