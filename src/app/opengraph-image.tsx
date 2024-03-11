@@ -20,9 +20,9 @@ export const contentType = 'image/png';
 
 // Image generation
 export default async function Image() {
-  // const { pricesData, convertCurrency } = usePricesContext();
+  const { pricesData, convertCurrency } = usePricesContext();
 
-  // const valueSatInArs = useMemo(() => convertCurrency(1, 'SAT', 'ARS'), [pricesData]);
+  const valueSatInArs = useMemo(() => convertCurrency(1, 'SAT', 'ARS'), [pricesData]);
 
   // Font
   // const interSemiBold = fetch(new URL('./Inter-SemiBold.ttf', import.meta.url)).then((res) => res.arrayBuffer());
@@ -41,11 +41,11 @@ export default async function Image() {
           justifyContent: 'center',
         }}
       >
-        <Heading>1SAT = 1PESO</Heading>
-        <Flex gap={8}>
-          <Progress value={0.69 * 100} />
-          <Text isBold>${0.69}</Text>
-        </Flex>
+        <h1>1SAT = 1PESO</h1>
+        <div>
+          {/* <Progress value={0.69 * 100} /> */}
+          <p>${valueSatInArs}</p>
+        </div>
       </div>
     ),
     // ImageResponse options
