@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { ImageResponse } from 'next/og';
 import { Heading, Text, Flex } from '@lawallet/ui';
 
