@@ -6,8 +6,8 @@ export const runtime = 'edge';
 // Image metadata
 export const alt = '1SAT = 1PESO';
 export const size = {
-  width: 1200,
-  height: 630,
+  width: 600,
+  height: 330,
 };
 
 export const contentType = 'image/png';
@@ -34,7 +34,7 @@ export default async function Image() {
         <div
           style={{
             color: '#808080',
-            fontSize: '32px',
+            fontSize: '22px',
           }}
         >
           1 BTC = 100.000.000 SAT
@@ -44,9 +44,9 @@ export default async function Image() {
             backgroundImage: 'linear-gradient(180deg, #fff, #101010)',
             backgroundClip: 'text',
             color: 'transparent',
-            fontSize: '80px',
+            fontSize: '60px',
             fontWeight: 'bold',
-            lineHeight: '70px',
+            lineHeight: '50px',
           }}
         >
           1 SAT = 1 PESO
@@ -96,7 +96,7 @@ export default async function Image() {
             alignItems: 'center',
             gap: '8px',
             color: '#808080',
-            fontSize: '22px',
+            fontSize: '16px',
           }}
         >
           <p>made with</p>
