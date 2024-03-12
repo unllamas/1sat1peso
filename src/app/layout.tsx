@@ -10,9 +10,6 @@ export const metadata: Metadata = {
   description:
     'La hiperbitcoinización es inminente, por eso enterate cuánto falta para el famoso 1 a 1 del Peso Argentino contra Bitcoin.',
   metadataBase: new URL('https://1sat1peso.vercel.app/'),
-  openGraph: {
-    images: '/api/og',
-  },
 };
 
 export default function RootLayout({
