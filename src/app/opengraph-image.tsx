@@ -1,21 +1,54 @@
 import { ImageResponse } from 'next/og';
 
+import { roundToDown, decimalsToUse } from '@/utils';
+
 // Route segment config
 export const runtime = 'edge';
 
 // Image metadata
+export const contentType = 'image/png';
 export const alt = '1SAT = 1PESO';
 export const size = {
   width: 1200,
   height: 630,
 };
 
-export const contentType = 'image/png';
+// ENV
+const ENDPOINT_PRICE_BTC: string = 'https://api.yadio.io/exrates/btc';
 
 // Image generation
 export default async function Image() {
   // Font
-  // const interSemiBold = fetch(new URL('./Inter-SemiBold.ttf', import.meta.url)).then((res) => res.arrayBuffer());
+  const blatantBoldFont = fetch(new URL('../styles/fonts/Blatant-Bold.woff', import.meta.url)).then((res) =>
+    res.arrayBuffer(),
+  );
+
+  // Get prices
+  const fetchData = await fetch(ENDPOINT_PRICE_BTC)
+    .then((res) => res.json())
+    .then((pricesResponse) => {
+      const BTCPrices = pricesResponse.BTC;
+      if (!BTCPrices) return false;
+
+      const updatedPrices = {
+        ARS: BTCPrices.ARS / 10 ** 8,
+        USD: BTCPrices.USD / 10 ** 8,
+        SAT: 1,
+        loading: false,
+      };
+
+      return updatedPrices;
+    });
+
+  const convertCurrency = (): number => {
+    let convertedAmount: number = 0;
+    if (!fetchData) return convertedAmount;
+
+    const multiplier: number = Number(fetchData.ARS) / Number(fetchData.SAT);
+    convertedAmount = 1 * multiplier;
+
+    return Number(roundToDown(convertedAmount, 8).toFixed(decimalsToUse('ARS')));
+  };
 
   return new ImageResponse(
     (
@@ -25,7 +58,7 @@ export default async function Image() {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          gap: '8px',
+          gap: '16px',
           height: '100%',
           width: '100%',
           backgroundImage: 'linear-gradient(45deg, #101010, #333333)',
@@ -34,19 +67,20 @@ export default async function Image() {
         <div
           style={{
             color: '#808080',
-            fontSize: '32px',
+            fontSize: '40px',
           }}
         >
           1 BTC = 100.000.000 SAT
         </div>
         <div
           style={{
-            backgroundImage: 'linear-gradient(180deg, #fff, #101010)',
+            backgroundImage: 'linear-gradient(45deg, #808080, #fff)',
             backgroundClip: 'text',
             color: 'transparent',
-            fontSize: '80px',
+            fontFamily: 'Blatant',
+            fontSize: '120px',
             fontWeight: 'bold',
-            lineHeight: '70px',
+            lineHeight: '120px',
           }}
         >
           1 SAT = 1 PESO
@@ -72,7 +106,7 @@ export default async function Image() {
           >
             <div
               style={{
-                width: '50%',
+                width: `${convertCurrency() * 100}%`,
                 height: '17px',
                 backgroundColor: '#C2F76C',
               }}
@@ -82,10 +116,10 @@ export default async function Image() {
             style={{
               color: '#fff',
               fontWeight: 'bold',
-              fontSize: '24px',
+              fontSize: '48px',
             }}
           >
-            $0.73
+            ${convertCurrency()}
           </p>
         </div>
         <div
@@ -96,7 +130,7 @@ export default async function Image() {
             alignItems: 'center',
             gap: '8px',
             color: '#808080',
-            fontSize: '22px',
+            fontSize: '32px',
           }}
         >
           <p>made with</p>
@@ -209,17 +243,14 @@ export default async function Image() {
     ),
     // ImageResponse options
     {
-      // For convenience, we can re-use the exported opengraph-image
-      // size config to also set the ImageResponse's width and height.
       ...size,
-      // fonts: [
-      //   {
-      //     name: 'Inter',
-      //     data: await interSemiBold,
-      //     style: 'normal',
-      //     weight: 400,
-      //   },
-      // ],
+      fonts: [
+        {
+          name: 'Blatant',
+          data: await blatantBoldFont,
+          weight: 700,
+        },
+      ],
     },
   );
 }
